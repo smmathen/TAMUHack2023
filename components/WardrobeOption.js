@@ -99,19 +99,27 @@ var SkinColors = [
 
 
 export default function WardrobeOption(props) {
-    var w = 900
-    var h = 900
+    var w = 250
+    var h = 250
     return (
-        <View style={{ flex: 1}}>
-            <Image source={require('../assets/Sprites/Accessory/bluecap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/glasses.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/greencap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/orangecap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/pinkcap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/purplecap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/redcap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/whitecap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
-            <Image source={require('../assets/Sprites/Accessory/yellowcap.png')} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+        <View style={{ flex: 1, flexDirection:'row', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center'}}>
+            <Image source={require('../assets/Sprites/Accessory/bluecap.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Accessory/redcap.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Bottom/whitepant.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Bottom/blueshort.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Bottom/grayskirt.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Shirt/a_mshirt.png'       )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Shirt/tamuhackshirt.png'  )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            <Image source={require('../assets/Sprites/Shirt/yellowshirt.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+            {/* <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
+            <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} /> */}
         </View>
     );
 }
