@@ -8,6 +8,9 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
 import SettingsPage from "./components/SettingsPage"
+import WardrobeOption from "./components/WardrobeOption";
+
+var level = 0
 
 function DetailsScreen() {
   return (
@@ -18,7 +21,7 @@ function DetailsScreen() {
 }
 
 function HomeScreen({ navigation }) {
-  var y = -700
+  var y = -700 + 2**level
   return (
     <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
       {/* <Button
@@ -26,10 +29,13 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Details')}
       /> */}
       <Image source={require('./assets/day.png')} style={{ width: 900, height: 900, position: 'absolute', bottom: -800}} />
+      <Image source={require('./assets/Sprites/JustEyes/eyes.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y, tintColor:'yellow'}} />
       <Image source={require('./assets/Sprites/JustSkin/skin.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
       <Image source={require('./assets/Sprites/BodyOutline/skinG1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
       <Image source={require('./assets/Sprites/Hair/hair1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Hair/hair1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y, opacity:0.5, tintColor:'red'}} />
       <Image source={require('./assets/Sprites/Shirt/tamuhackshirt.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Shirt/tamuhackshirt.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y, opacity:0.5, tintColor:'red'}} />
       <Image source={require('./assets/Sprites/Bottom/whitepant.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
       <Image source={require('./assets/Sprites/Shoes/whiteshoes.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
     </View >
@@ -55,7 +61,8 @@ function ShopScreen({ navigation }) {
 function WardrobeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Wardrobe Screen!</Text>
+      <Text>Wardrobe Screen!!</Text>
+      <WardrobeOption />
     </View>
   );
 }
