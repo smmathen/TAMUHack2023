@@ -8,6 +8,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
 import SettingsPage from "./components/SettingsPage"
+import FriendsPage from "./components/Friends"
 
 function DetailsScreen() {
   return (
@@ -61,7 +62,7 @@ function WardrobeScreen({ navigation }) {
 function FriendsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Friends Screen!</Text>
+      <FriendsPage />
     </View>
   );
 }
