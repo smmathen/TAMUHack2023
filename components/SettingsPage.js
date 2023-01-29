@@ -16,11 +16,11 @@ export default function SettingsPage() {
             <Pressable style={styles.button}  >
                 <Text style={styles.text}>{"Terms and Conditions"}</Text>
             </Pressable>
-            <Pressable style={styles.button}  >
-                <Text style={styles.text}>{"Log Out"}</Text>
+            <Pressable style={styles.button} onPress={() => alert("See you next.")}  >
+                <Text style={styles.text} >{"Log Out"}</Text>
             </Pressable>
             <Pressable style={styles.badbut}  >
-                <Text style={styles.badtext}>{"DELETE ACCOUNT"}</Text>
+                <Text style={styles.badtext} onPress={() => alert("We are sad to see you go.")}>{"DELETE ACCOUNT"} </Text>
             </Pressable>
         </View>
 

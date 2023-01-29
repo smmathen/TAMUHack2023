@@ -9,6 +9,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
 import SettingsPage from "./components/SettingsPage"
 import WardrobeOption from "./components/WardrobeOption";
+import FriendsPage from "./components/Friends"
 
 var level = 0
 
@@ -50,13 +51,7 @@ function QuestsScreen({ navigation }) {
   );
 }
 
-function ShopScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Shop Screen!</Text>
-    </View>
-  );
-}
+
 
 function WardrobeScreen({ navigation }) {
   return (
@@ -69,7 +64,7 @@ function WardrobeScreen({ navigation }) {
 function FriendsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Friends Screen!</Text>
+      <FriendsPage />
     </View>
   );
 }
@@ -122,15 +117,7 @@ function QuestsStackScreen() {
   );
 }
 
-const ShopStack = createNativeStackNavigator();
-function ShopStackScreen() {
-  return (
-    <ShopStack.Navigator>
-      <ShopStack.Screen name="SHOP" component={ShopScreen} options={{ headerShown: false }} />
-      {/* <SettingsStack.Screen name="Details" component={DetailsScreen} /> */}
-    </ShopStack.Navigator>
-  );
-}
+
 
 const WardrobeStack = createNativeStackNavigator();
 function WardrobeStackScreen() {
@@ -169,11 +156,7 @@ export default function App() {
             <Icon name="file-text-o" color={focused ? "#F55050" : '#86A3B8'} size={size} />
           )
         }} />
-        <Tab.Screen name="Shop" component={ShopStackScreen} options={{
-          tabBarIcon: ({ color, size, focused }) => (
-            <Icon name="building-o" color={focused ? "#F55050" : '#86A3B8'} size={size} />
-          )
-        }} />
+
         <Tab.Screen name="Wardrobe" component={WardrobeStackScreen} options={{
           tabBarIcon: ({ color, size, focused }) => (
             <Icon2 name="wardrobe-outline" color={focused ? "#F55050" : '#86A3B8'} size={size} />
