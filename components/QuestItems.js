@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import QuestItem from './QuestItem';
 import QuestInputField from './QuestInputField';
 
+// https://cftl8gao04.execute-api.us-east-1.amazonaws.com/getQuests
 
 export default function QuestItems() {
     const [quests, setQuests] = useState([]);
