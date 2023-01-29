@@ -25,7 +25,9 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.9",
     "react-router-dom": "^6.8.0",
-    "reactstrap": "^9.1.5"
+    "reactstrap": "^9.1.5",
+    "serverless-python-requirements": "^6.0.0",
+    "serverless-wsgi": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
