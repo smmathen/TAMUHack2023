@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
 import QuestItem from './QuestItem';
 import QuestInputField from './QuestInputField';
-
+import Icon from "react-native-vector-icons/FontAwesome"
+const { width } = Dimensions.get("window");
 
 export default function QuestItems() {
     const [quests, setQuests] = useState([]);
@@ -21,9 +22,16 @@ export default function QuestItems() {
         setQuests(quests.filter((value, index) => index != completeIndex));
     }
 
+    function addTask() {
+        alert("lkshgbaskljhfk");
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>QUESTS</Text>
+            {/* <Icon name='plus' color={"#F55050"} size={40} onPress={() => addTask()}> </Icon> */}
+
+
             <ScrollView style={styles.scrollView}>
                 {
                     quests.map((quest, index) => {
@@ -39,7 +47,7 @@ export default function QuestItems() {
                 <QuestInputField addQuest={addQuest} />
 
             </View>
-        </View>
+        </View >
     );
 }
 
@@ -68,5 +76,10 @@ const styles = StyleSheet.create({
         position: 'relative',
         bottom: 0,
         width: 400
+    },
+    plusSign: {
+        position: 'absolute',
+        bottom: 720,
+        right: 17
     }
 });
