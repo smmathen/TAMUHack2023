@@ -7,8 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
-import Picker from "./components/Picker"
-
+import SettingsPage from "./components/SettingsPage"
 
 function DetailsScreen() {
   return (
@@ -76,8 +75,7 @@ function SettingsScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Skin Color!</Text>
-      <Picker color={a} />
+      <SettingsPage />
     </View>
   );
 }
