@@ -2,6 +2,7 @@ from flask import Flask
 from flask_pymongo import pymongo
 CONNECTION_STRING = "mongodb+srv://kaster-admin:dutyland@kaster.gbdbqkw.mongodb.net/?retryWrites=true&w=majority"
 client = pymongo.MongoClient(CONNECTION_STRING)
+print("database connected")
 db = client.get_database('kaster_users')
 user_collection = pymongo.collection.Collection(db, 'user_collection')
 
