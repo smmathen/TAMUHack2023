@@ -26,6 +26,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.9",
+    "react-native-wheel-color-picker": "^1.2.0",
     "react-router-dom": "^6.8.0",
     "reactstrap": "^9.1.5"
   },
