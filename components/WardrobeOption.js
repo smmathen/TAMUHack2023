@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image} from "react-native";
+import { StyleSheet, Text, View, Image, Pressable} from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
 var Accessory = [
@@ -99,18 +99,24 @@ var SkinColors = [
 
 
 export default function WardrobeOption(props) {
-    var w = 250
-    var h = 250
+    const onTap = () => {
+        console.log('Button touched!');
+      };
     return (
-        <View style={{ flex: 1, flexDirection:'row', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center'}}>
-            <Image source={require('../assets/Sprites/Accessory/bluecap.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Accessory/redcap.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Bottom/whitepant.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Bottom/blueshort.png'     )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Bottom/grayskirt.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Shirt/a_mshirt.png'       )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Shirt/tamuhackshirt.png'  )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
-            <Image source={require('../assets/Sprites/Shirt/yellowshirt.png'    )} style={{ width: w, height: h, position: 'relative', bottom: 0}} />
+        <View style={styles.container}>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Accessory/glasses.png'    )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Accessory/bluecap.png'    )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Accessory/redcap.png'     )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Bottom/bluepant.png'      )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Bottom/blueshort.png'     )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Bottom/grayskirt.png'     )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Shirt/a_mshirt.png'       )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Shirt/tamuhackshirt.png'  )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Hair/hairG4.png'          )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Hair/hairG3.png'          )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Hair/hairB3.png'          )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Hair/hairB1.png'          )} style={styles.image} /></Pressable>
+            <Pressable style={({pressed}) => [{backgroundColor: pressed ? 'rgba(255, 255, 204, 1.0)' : 'rgba(255, 255, 204, 0.0)'}]}><Image source={require('../assets/Sprites/Shoes/whiteshoes.png'     )} style={styles.image} /></Pressable>
             {/* <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
             <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
             <Image source={require()} style={{ width: w, height: h, position: 'absolute', bottom: -800}} />
@@ -124,48 +130,29 @@ export default function WardrobeOption(props) {
     );
 }
 
+var w = 200
+var h = 200
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        marginHorizontal: 20,
+        flex: 1, 
+        flexDirection:'row', 
+        flexWrap:'wrap', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        marginTop: 50,
+        padding: 2,
+        borderRadius: '50%'
     },
-    indexContainer: {
+    image: {
+        width: w, 
+        height: h, 
+        position: 'relative',
+        bottom: 0,
+        borderColor: 'brown',
+        borderWidth: 4,
+        borderRadius: 20,
+        margin: 3
 
-        borderRadius: 12,
-        marginRight: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 50,
-        height: 50,
-    },
-    index: {
-        color: '#F55050',
-        fontSize: 20,
-    },
-    questContainer: {
-        borderRadius: 12,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flex: 1,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        minHeight: 50,
-    },
-    quest: {
-        left: 30,
-        bottom: 10,
-        color: '#F55050',
-        width: '70%',
-        fontSize: 24,
-    },
-    delete: {
-        marginLeft: 10,
-        bottom: 10
-    },
-    check: {
-        bottom: 20,
-        left: 40
-    },
+    }
 });
