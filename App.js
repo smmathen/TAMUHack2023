@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
-
+import SettingsPage from "./components/SettingsPage"
 
 function DetailsScreen() {
   return (
@@ -27,7 +27,7 @@ function HomeScreen({ navigation }) {
       /> */}
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
       <ImageBackground source={require('./assets/day.png')} style={{ height: 1000, position: 'absolute' }}>
-        <Image source={require('./assets/male_sprite.png')} style={{ width: 450, height: 450, position: 'relative', bottom: -400 }} />
+        <Image source={require('./assets/female_sprite1.png')} style={{ width: 450, height: 450, position: 'relative', bottom: -400 }} />
       </ImageBackground>
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
     </View >
@@ -69,7 +69,7 @@ function FriendsScreen({ navigation }) {
 function SettingsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-      <Text>Settings screen</Text>
+      <SettingsPage />
     </View>
   );
 }
