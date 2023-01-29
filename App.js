@@ -62,7 +62,6 @@ function WardrobeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
       <Text>Wardrobe Screen!!</Text>
-      <WardrobeOption />
     </View>
   );
 }
