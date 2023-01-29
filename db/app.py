@@ -8,5 +8,5 @@ def flask_mongodb_atlas():
 #test to insert data to the data base
 @app.route('/test')
 def test():
-    # db.db.collection.insert_one({"name": "John"})
+    db.db.collection.insert_one({"name": "John"})
     return "Connected to the data base!"
