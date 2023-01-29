@@ -1,56 +1,82 @@
 import React from 'react';
 import {
     StyleSheet,
-    Button,
-    View,
-    Alert,
+    Pressable,
+    Text,
+    View
 } from 'react-native';
 
 
-const SettingsPage = () => (
-
-    <View>
-        <View >
-            <Button
-                title="Personal Preferences"
-                onPress={() => Alert.alert('Simple Button pressed')}
-            />
-            <Button
-                title="Quest Colors"
-                onPress={() => Alert.alert('Simple Button pressed')}
-            />
-            <Button
-                title="Terms and Conditions"
-                onPress={() => Alert.alert('Simple Button pressed')}
-            />
-            <Button
-                title="Logout"
-                onPress={() => Alert.alert('Simple Button pressed')}
-            />
+export default function SettingsPage() {
+    return (
+        <View style={styles.all}>
+            <Pressable style={styles.button}  >
+                <Text style={styles.text}>{"Personal Preferences"}</Text>
+            </Pressable>
+            <Pressable style={styles.button}  >
+                <Text style={styles.text}>{"Terms and Conditions"}</Text>
+            </Pressable>
+            <Pressable style={styles.button}  >
+                <Text style={styles.text}>{"Log Out"}</Text>
+            </Pressable>
+            <Pressable style={styles.badbut}  >
+                <Text style={styles.badtext}>{"DELETE ACCOUNT"}</Text>
+            </Pressable>
         </View>
 
-    </View>
+    );
 
-);
+}
 
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         marginHorizontal: 16,
-//     },
-//     top: {
-//         backgroundColor: '#F48484',
-//         borderWidth: 1,
-//         width: 400,
-//         height: 100,
-//         color: "#fff",
-//         justifyContent: "center"
-//     },
-//     fixToText: {
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//     }
-// });
 
-export default SettingsPage;
+
+
+const styles = StyleSheet.create({
+    all: {
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        borderRadius: 10,
+        elevation: 25,
+        margin: 10,
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 14,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#86A3B8',
+        margin: 10
+    },
+    badbut: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 14,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        color: 'red',
+        margin: 10,
+        width: '94%'
+    },
+
+    text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+    },
+    badtext: {
+        fontSize: 13,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+        backgroundColor: 'red',
+        paddingHorizontal: 20,
+        paddingVertical: 20
+    },
+});
+

@@ -16,6 +16,11 @@ export default function QuestItems() {
         setQuests(quests.filter((value, index) => index != deleteIndex));
     }
 
+    const completeQuest = (completeIndex) => {
+        alert("Congrats, you completed your quest!")
+        setQuests(quests.filter((value, index) => index != completeIndex));
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>QUESTS</Text>
@@ -24,7 +29,7 @@ export default function QuestItems() {
                     quests.map((quest, index) => {
                         return (
                             <View key={index} style={styles.questContainer}>
-                                <QuestItem index={index + 1} quest={quest} deleteQuest={() => deleteQuest(index)} />
+                                <QuestItem index={index + 1} quest={quest} completeQuest={() => completeQuest(index)} deleteQuest={() => deleteQuest(index)} />
                             </View>
                         );
                     })
@@ -51,6 +56,7 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginBottom: 10,
         marginLeft: 20,
+        textAlign: 'center'
     },
     scrollView: {
         marginBottom: 70,

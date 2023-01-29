@@ -26,8 +26,8 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Details')}
       /> */}
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
-      <ImageBackground source={require('./assets/day.png')} style={{ height: 1000, position: 'absolute' }}>
-        <Image source={require('./assets/female_sprite1.png')} style={{ width: 450, height: 450, position: 'relative', bottom: -400 }} />
+      <ImageBackground source={require('./assets/night.png')} style={{ height: '100%', width: '100%', position: 'absolute' }}>
+        <Image source={require('./assets/female_sprite2.png')} style={{ width: 460, height: 400, position: 'relative', bottom: -275, right: 20 }} />
       </ImageBackground>
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
     </View >
