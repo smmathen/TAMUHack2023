@@ -19,8 +19,30 @@ function DetailsScreen() {
 
 function HomeScreen({ navigation }) {
   var y = -700
-  return (
-    <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
+
+  var today = new Date();
+  var time = today.getHours();
+
+  if ((time > 20) || (time < 7)) {
+    return (
+      <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
+      {/* <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      /> */}
+      <Image source={require('./assets/night.png')} style={{ width: 900, height: 900, position: 'absolute', bottom: -800}} />
+      <Image source={require('./assets/Sprites/JustSkin/skin.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/BodyOutline/skinG1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Hair/hair1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Shirt/tamuhackshirt.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Bottom/whitepant.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Shoes/whiteshoes.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+    </View >
+    );
+  }
+  else {
+    return (
+      <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
       {/* <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
@@ -33,7 +55,8 @@ function HomeScreen({ navigation }) {
       <Image source={require('./assets/Sprites/Bottom/whitepant.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
       <Image source={require('./assets/Sprites/Shoes/whiteshoes.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
     </View >
-  );
+    );
+  }
 }
 
 function QuestsScreen({ navigation }) {
