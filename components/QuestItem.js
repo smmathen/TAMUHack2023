@@ -7,11 +7,14 @@ export default QuestItem = (props) => {
         <View style={styles.container}>
             <View style={styles.indexContainer}>
                 <Text style={styles.index}>{props.index}</Text>
+                <TouchableOpacity onPress={() => props.completeQuest()}>
+                    <MaterialIcons style={styles.check} name="check" size={30} color='#F55050' />
+                </TouchableOpacity>
             </View>
             <View style={styles.questContainer}>
                 <Text style={styles.quest}>{props.quest}</Text>
                 <TouchableOpacity onPress={() => props.deleteQuest()}>
-                    <MaterialIcons style={styles.delete} name="delete" size={18} color='#F55050' />
+                    <MaterialIcons style={styles.delete} name="delete" size={22} color='#F55050' />
                 </TouchableOpacity>
             </View>
         </View>
@@ -47,11 +50,18 @@ const styles = StyleSheet.create({
         minHeight: 50,
     },
     quest: {
+        left: 30,
+        bottom: 10,
         color: '#F55050',
-        width: '90%',
+        width: '70%',
         fontSize: 24,
     },
     delete: {
         marginLeft: 10,
+        bottom: 10
+    },
+    check: {
+        bottom: 20,
+        left: 40
     },
 });
