@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import { Button, Text, View, Image, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,18 +18,20 @@ function DetailsScreen() {
 }
 
 function HomeScreen({ navigation }) {
+  var y = -700
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
-
+    <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
       {/* <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
       /> */}
-      {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
-      <ImageBackground source={require('./assets/night.png')} style={{ height: '100%', width: '100%', position: 'absolute' }}>
-        <Image source={require('./assets/female_sprite2.png')} style={{ width: 460, height: 400, position: 'relative', bottom: -275, right: 20 }} />
-      </ImageBackground>
-      {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
+      <Image source={require('./assets/day.png')} style={{ width: 900, height: 900, position: 'absolute', bottom: -800}} />
+      <Image source={require('./assets/Sprites/JustSkin/skin.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/BodyOutline/skinG1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Hair/hair1.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Shirt/tamuhackshirt.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Bottom/whitepant.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
+      <Image source={require('./assets/Sprites/Shoes/whiteshoes.png')} style={{ width: 450, height: 450, position: 'absolute', bottom: y}} />
     </View >
   );
 }
@@ -67,6 +69,10 @@ function FriendsScreen({ navigation }) {
 }
 
 function SettingsScreen({ navigation }) {
+  const [a, setA] = useState("#f2f2f2");
+
+  setTimeout(() => setA("#000000"), 3000);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
       <SettingsPage />
