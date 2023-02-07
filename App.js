@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, Text, View, Image, ImageBackground } from 'react-native';
+import { useState } from 'react';
+import { Button, Text, View, Image, ImageBackground, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +9,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import QuestItems from "./components/QuestItems"
 import SettingsPage from "./components/SettingsPage"
+import { json } from 'react-router-dom';
 
 function DetailsScreen() {
   return (
@@ -18,17 +20,28 @@ function DetailsScreen() {
 }
 
 function HomeScreen({ navigation }) {
+  const [text, setText] = useState(["start"]);
+
+  const getLists = async () => {
+    // alert("test");
+    const response = await fetch("https://wni4o6svy4z2tcrrq5l4eh272m0rgrwg.lambda-url.us-east-2.on.aws/");
+    const jsonText = await response.text();
+    setText(jsonText);
+  }
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8D2A6' }}>
+
+      <Text>{text}</Text>
+      <Button onPress= {() => getLists()} title={"press"}></Button>
 
       {/* <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
       /> */}
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
-      <ImageBackground source={require('./assets/night.png')} style={{ height: '100%', width: '100%', position: 'absolute' }}>
+      {/* <ImageBackground source={require('./assets/night.png')} style={{ height: '100%', width: '100%', position: 'absolute' }}>
         <Image source={require('./assets/female_sprite2.png')} style={{ width: 460, height: 400, position: 'relative', bottom: -275, right: 20 }} />
-      </ImageBackground>
+      </ImageBackground> */}
       {/* <Image source={require('./assets/female_sprite1.png')} style={{ width: 250, height: 250 }} /> */}
     </View >
   );

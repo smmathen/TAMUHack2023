@@ -84,10 +84,10 @@
               }
             }
           },
-          "ApiLogGroup": {
+          "AppLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/tasks-dev-api"
+              "LogGroupName": "/aws/lambda/tasks-dev-app"
             }
           },
           "IamRoleLambdaExecution": {
@@ -201,7 +201,7 @@
                         "Resource": [
                           {
                             "Fn::GetAtt": [
-                              "ApiLogGroup",
+                              "AppLogGroup",
                               "Arn"
                             ]
                           }
@@ -213,18 +213,18 @@
               ]
             }
           },
-          "ApiLambdaFunction": {
+          "AppLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/tasks/dev/1674980496504-2023-01-29T08:21:36.504Z/tasks.zip"
+                "S3Key": "serverless/tasks/dev/1674992488826-2023-01-29T11:41:28.826Z/tasks.zip"
               },
-              "Handler": "s_api.handler",
+              "Handler": "s_app.handler",
               "Runtime": "python3.9",
-              "FunctionName": "tasks-dev-api",
+              "FunctionName": "tasks-dev-app",
               "MemorySize": 128,
               "Timeout": 6,
               "Role": {
@@ -235,61 +235,98 @@
               }
             },
             "DependsOn": [
-              "ApiLogGroup"
+              "AppLogGroup"
             ]
           },
-          "ApiLambdaVersionx3Dp7uv2cielbcf3MhgcLorIZOv4qVm34jrqFiciRuw": {
+          "AppLambdaVersionn02vOzmAjQ0PXzRQ10yeFH1Ishp43eCjQ2jITcu4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "ApiLambdaFunction"
+                "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "DmvgpiTyHelIono/HcyoV9xLUoZfsXwrS4JMSDFyljo="
+              "CodeSha256": "uTz2d6XlLTECJomc+JufZIY8KGAywvwE8igSb8RBNAE="
             }
           },
-          "HttpApi": {
-            "Type": "AWS::ApiGatewayV2::Api",
+          "ApiGatewayRestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
               "Name": "dev-tasks",
-              "ProtocolType": "HTTP"
+              "EndpointConfiguration": {
+                "Types": [
+                  "EDGE"
+                ]
+              },
+              "Policy": ""
             }
           },
-          "HttpApiLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
+          "ApiGatewayMethodAny": {
+            "Type": "AWS::ApiGateway::Method",
             "Properties": {
-              "LogGroupName": "/aws/http-api/tasks-dev"
-            }
-          },
-          "HttpApiStage": {
-            "Type": "AWS::ApiGatewayV2::Stage",
-            "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
+              "HttpMethod": "ANY",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
               },
-              "StageName": "$default",
-              "AutoDeploy": true,
-              "DefaultRouteSettings": {
-                "DetailedMetricsEnabled": false
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
               },
-              "AccessLogSettings": {
-                "DestinationArn": {
-                  "Fn::GetAtt": [
-                    "HttpApiLogGroup",
-                    "Arn"
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "AppLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
                   ]
-                },
-                "Format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourcePath\":\"$context.routeKey\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"stage\":\"$context.stage\",\"status\":\"$context.status\",\"integrationStatus\":\"$context.integrationStatus\",\"integrationLatency\":\"$context.integrationLatency\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_HTTP_API_LOG\",\"version\":\"1.0.0\"}"
-              }
+                }
+              },
+              "MethodResponses": []
             },
-            "DependsOn": "HttpApiLogGroup"
+            "DependsOn": [
+              "AppLambdaPermissionApiGateway"
+            ]
           },
-          "ApiLambdaPermissionHttpApi": {
+          "ApiGatewayDeployment1674992478626": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "StageName": "dev"
+            },
+            "DependsOn": [
+              "ApiGatewayMethodAny"
+            ]
+          },
+          "AppLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
                 "Fn::GetAtt": [
-                  "ApiLambdaFunction",
+                  "AppLambdaFunction",
                   "Arn"
                 ]
               },
@@ -313,66 +350,158 @@
                     },
                     ":",
                     {
-                      "Ref": "HttpApi"
+                      "Ref": "ApiGatewayRestApi"
                     },
-                    "/*"
+                    "/*/*"
                   ]
                 ]
               }
             }
           },
-          "HttpApiIntegrationApi": {
-            "Type": "AWS::ApiGatewayV2::Integration",
+          "ApiGatewayLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
-              },
-              "IntegrationType": "AWS_PROXY",
-              "IntegrationUri": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
-              },
-              "PayloadFormatVersion": "2.0",
-              "TimeoutInMillis": 30000
+              "LogGroupName": "/aws/api-gateway/tasks-dev"
             }
           },
-          "HttpApiRouteDefault": {
-            "Type": "AWS::ApiGatewayV2::Route",
+          "CustomApiGatewayAccountCloudWatchRole": {
+            "Type": "Custom::ApiGatewayAccountRole",
+            "Version": 1,
             "Properties": {
-              "ApiId": {
-                "Ref": "HttpApi"
+              "ServiceToken": {
+                "Fn::GetAtt": [
+                  "CustomDashresourceDashapigwDashcwDashroleLambdaFunction",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "IamRoleCustomResourcesLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
               },
-              "RouteKey": "$default",
-              "Target": {
-                "Fn::Join": [
-                  "/",
-                  [
-                    "integrations",
-                    {
-                      "Ref": "HttpApiIntegrationApi"
-                    }
-                  ]
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "tasks",
+                        "custom-resources-lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              "iam:",
+                              {
+                                "Ref": "AWS::AccountId"
+                              },
+                              "role/*"
+                            ]
+                          ]
+                        },
+                        "Action": [
+                          "iam:AttachRolePolicy",
+                          "iam:CreateRole",
+                          "iam:ListAttachedRolePolicies",
+                          "iam:PassRole"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              "apigateway:*::/account"
+                            ]
+                          ]
+                        },
+                        "Action": [
+                          "apigateway:GET",
+                          "apigateway:PATCH"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "CustomDashresourceDashapigwDashcwDashroleLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/tasks/dev/1674992488826-2023-01-29T11:41:28.826Z/custom-resources.zip"
+              },
+              "FunctionName": "tasks-dev-custom-resource-apigw-cw-role",
+              "Handler": "api-gateway-cloud-watch-role/handler.handler",
+              "MemorySize": 1024,
+              "Runtime": "nodejs16.x",
+              "Timeout": 180,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleCustomResourcesLambdaExecution",
+                  "Arn"
                 ]
               }
             },
-            "DependsOn": "HttpApiIntegrationApi"
+            "DependsOn": [
+              "IamRoleCustomResourcesLambdaExecution"
+            ]
           },
-          "CWLSubFilterApiLogGroupUsEast1": {
+          "CWLSubFilterAppLogGroupUsEast1": {
             "Type": "AWS::Logs::SubscriptionFilter",
             "Properties": {
               "DestinationArn": "arn:aws:logs:us-east-1:802587217904:destination:5b878d2d-4e74-4dfd-97c3-a6399a7283c5#Q5g36r2zwN15PTsbrG#tasks#dev",
               "FilterPattern": "?\"REPORT RequestId: \" ?\"SERVERLESS_ENTERPRISE\"",
               "LogGroupName": {
-                "Ref": "ApiLogGroup"
+                "Ref": "AppLogGroup"
               }
             }
           },
-          "CWLSubFilterHttpApiLogGroupUsEast1": {
+          "CWLSubFilterApiGatewayLogGroupUsEast1": {
             "Type": "AWS::Logs::SubscriptionFilter",
             "Properties": {
               "DestinationArn": "arn:aws:logs:us-east-1:802587217904:destination:5b878d2d-4e74-4dfd-97c3-a6399a7283c5#Q5g36r2zwN15PTsbrG#tasks#dev",
-              "FilterPattern": "\"SLS_HTTP_API_LOG\"",
+              "FilterPattern": "\"SLS_ACCESS_LOG\"",
               "LogGroupName": {
-                "Ref": "HttpApiLogGroup"
+                "Ref": "ApiGatewayLogGroup"
               }
             }
           }
@@ -397,33 +526,24 @@
               "Name": "sls-tasks-dev-EnterpriseLogAccessIamRole"
             }
           },
-          "ApiLambdaFunctionQualifiedArn": {
+          "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionx3Dp7uv2cielbcf3MhgcLorIZOv4qVm34jrqFiciRuw"
+              "Ref": "AppLambdaVersionn02vOzmAjQ0PXzRQ10yeFH1Ishp43eCjQ2jITcu4"
             },
             "Export": {
-              "Name": "sls-tasks-dev-ApiLambdaFunctionQualifiedArn"
+              "Name": "sls-tasks-dev-AppLambdaFunctionQualifiedArn"
             }
           },
-          "HttpApiId": {
-            "Description": "Id of the HTTP API",
-            "Value": {
-              "Ref": "HttpApi"
-            },
-            "Export": {
-              "Name": "sls-tasks-dev-HttpApiId"
-            }
-          },
-          "HttpApiUrl": {
-            "Description": "URL of the HTTP API",
+          "ServiceEndpoint": {
+            "Description": "URL of the service endpoint",
             "Value": {
               "Fn::Join": [
                 "",
                 [
                   "https://",
                   {
-                    "Ref": "HttpApi"
+                    "Ref": "ApiGatewayRestApi"
                   },
                   ".execute-api.",
                   {
@@ -432,12 +552,13 @@
                   ".",
                   {
                     "Ref": "AWS::URLSuffix"
-                  }
+                  },
+                  "/dev"
                 ]
               ]
             },
             "Export": {
-              "Name": "sls-tasks-dev-HttpApiUrl"
+              "Name": "sls-tasks-dev-ServiceEndpoint"
             }
           }
         }
@@ -525,15 +646,16 @@
         }
       },
       "logs": {
-        "httpApi": {
-          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourcePath\":\"$context.routeKey\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"stage\":\"$context.stage\",\"status\":\"$context.status\",\"integrationStatus\":\"$context.integrationStatus\",\"integrationLatency\":\"$context.integrationLatency\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_HTTP_API_LOG\",\"version\":\"1.0.0\"}"
+        "restApi": {
+          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourceId\":\"$context.resourceId\",\"resourcePath\":\"$context.resourcePath\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"status\":\"$context.status\",\"authLatency\":\"$context.authorizer.integrationLatency\",\"integrationLatency\":\"$context.integrationLatency\",\"integrationStatus\":\"$context.integrationStatus\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_ACCESS_LOG\",\"version\":\"1.0.0\"}"
         }
       },
       "vpc": {}
     },
     "custom": {
       "wsgi": {
-        "app": "app.app"
+        "app": "app",
+        "packRequirements": false
       }
     },
     "plugins": [
@@ -542,21 +664,20 @@
     ],
     "pluginsData": {},
     "functions": {
-      "api": {
-        "handler": "s_api.handler",
+      "app": {
+        "handler": "s_app.handler",
         "events": [
           {
-            "httpApi": "*",
-            "resolvedMethod": "ANY"
+            "http": "ANY /"
           }
         ],
-        "name": "tasks-dev-api",
+        "name": "tasks-dev-app",
         "package": {},
         "memory": 128,
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionx3Dp7uv2cielbcf3MhgcLorIZOv4qVm34jrqFiciRuw"
+        "versionLogicalId": "AppLambdaVersionn02vOzmAjQ0PXzRQ10yeFH1Ishp43eCjQ2jITcu4"
       }
     },
     "configValidationMode": "warn",
@@ -566,14 +687,14 @@
       "app": "db-api",
       "service": "tasks",
       "frameworkVersion": "3",
-      "custom": {
-        "$ref": "$[\"service\"][\"custom\"]"
-      },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
       "plugins": {
         "$ref": "$[\"service\"][\"plugins\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -589,7 +710,7 @@
     "artifact": "C:\\Users\\Tuong\\Documents\\TAMUHack2023\\db-api\\.serverless\\tasks.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/tasks/dev/1674980496504-2023-01-29T08:21:36.504Z",
+    "artifactDirectoryName": "serverless/tasks/dev/1674992488826-2023-01-29T11:41:28.826Z",
     "artifact": "tasks.zip"
   }
 }
